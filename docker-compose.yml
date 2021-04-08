@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  telegram-auto-replier:
+    build: ./
+    container_name: telegram-auto-replier
+    networks:
+      - service
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: [ "python", "./autoreplier.py" ]
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_API_ID=${TELEGRAM_API_ID}
+      - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
+networks:
+  service:
+    driver: bridge
+    ipam:
+      driver: default
